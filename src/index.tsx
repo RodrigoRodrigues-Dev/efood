@@ -3,12 +3,40 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { Provider } from 'react-redux';
+import { store } from './store';
+
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Perfil from './pages/Perfil';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        path: '/',
+        element: <Home />
+      },
+      {
+        path: '/perfil/:name',
+        element: <Perfil />
+      }
+    ]
+  }
+]);
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
