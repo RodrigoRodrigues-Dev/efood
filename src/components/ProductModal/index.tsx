@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { modalClose } from '../../store/reducers/restaurantReducer';
+import { modalClose, addCart } from '../../store/reducers/restaurantReducer';
 
 import { RootState } from '../../store';
 
@@ -19,6 +19,11 @@ const ProductModal = () => {
     (state: RootState) => state.restaurantState.modal
   );
 
+  const handleCart = () => {
+    dispatch(modalClose());
+    dispatch(addCart(product?.id));
+  };
+
   return (
     <>
       <ProductModalStyled>
@@ -30,7 +35,9 @@ const ProductModal = () => {
           <h1>{product?.nome}</h1>
           <p>{product?.descricao}</p>
           <span>{product?.porcao}</span>
-          <ModalBtn>Adicionar ao carrinho - R${product?.preco}0</ModalBtn>
+          <ModalBtn onClick={() => handleCart()}>
+            Adicionar ao carrinho - R${product?.preco}0
+          </ModalBtn>
         </ModalContent>
       </ProductModalStyled>
       <Overlay onClick={() => dispatch(modalClose())} />

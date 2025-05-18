@@ -14,6 +14,11 @@ export const HeaderTexts = styled.p`
   font-size: 18px;
   font-weight: 900;
   color: rgb(${colors.PrimaryColor1});
+
+  &:hover {
+    cursor: pointer;
+    color: rgb(${colors.PrimaryColor1}, 0.8);
+  }
 `;
 
 export const Logo = styled.img`

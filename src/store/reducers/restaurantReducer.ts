@@ -15,12 +15,16 @@ interface RestaurantState {
   restaurant: Restaurant | undefined;
   modal: MenuItem | undefined;
   modalIsVisible: boolean;
+  cartIsVisible: boolean;
+  cart: MenuItem[];
 }
 
 const initialState: RestaurantState = {
   restaurant: undefined,
   modal: undefined,
-  modalIsVisible: false
+  modalIsVisible: false,
+  cartIsVisible: false,
+  cart: []
 };
 
 const restaurantSlice = createSlice({
@@ -47,10 +51,44 @@ const restaurantSlice = createSlice({
       state.modalIsVisible = true;
       document.documentElement.style.overflow = 'hidden';
       window.scroll(0, 0);
+    },
+    addCart: (state, action: PayloadAction<number | undefined>) => {
+      const item = state.restaurant?.cardapio.find(
+        i => i.id === action.payload
+      );
+      const itemExists = state.cart.some(i => i.id === action.payload);
+
+      if (!itemExists && item) {
+        state.cart.push(item);
+      } else {
+        alert('O item já existe!');
+      }
+    },
+    cartClose: state => {
+      state.cartIsVisible = false;
+      document.documentElement.style.overflow = '';
+    },
+    cartOpen: state => {
+      state.cartIsVisible = true;
+      document.documentElement.style.overflow = 'hidden';
+      window.scroll(0, 0);
+    },
+    deleteItemCart(state, action: PayloadAction<number | undefined>) {
+      if (typeof action.payload === 'number') {
+        state.cart = state.cart.filter(c => c.id !== action.payload);
+      }
     }
   }
 });
 
-export const { addRestaurant, setModal, modalClose, modalOpen } =
-  restaurantSlice.actions;
+export const {
+  addRestaurant,
+  setModal,
+  modalClose,
+  modalOpen,
+  addCart,
+  cartClose,
+  cartOpen,
+  deleteItemCart
+} = restaurantSlice.actions;
 export const restaurantReducer = restaurantSlice.reducer;

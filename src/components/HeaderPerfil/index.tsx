@@ -1,7 +1,16 @@
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartOpen } from '../../store/reducers/restaurantReducer';
+import { RootState } from '../../store';
 import { HeaderPefilStyled, HeaderTexts, Logo } from './styles';
 
 const HeaderPefil = () => {
+  const dispatch = useDispatch();
+
+  const cartProducts = useSelector(
+    (state: RootState) => state.restaurantState.cart
+  );
+
   return (
     <HeaderPefilStyled>
       <Link to="/">
@@ -9,7 +18,9 @@ const HeaderPefil = () => {
         <Logo src="https://efood-images.vercel.app/logo.png" alt="" />
       </Link>
 
-      <HeaderTexts>0 produto(s) no carrinho</HeaderTexts>
+      <HeaderTexts onClick={() => dispatch(cartOpen())}>
+        {cartProducts.length} produto(s) no carrinho
+      </HeaderTexts>
     </HeaderPefilStyled>
   );
 };

@@ -8,6 +8,7 @@ import CardProduct from '../../components/CardProduct';
 
 import { ListProducts } from './styles';
 import ProductModal from '../../components/ProductModal';
+import Cart from '../../containers/Cart';
 
 const Perfil = () => {
   const products = useSelector(
@@ -18,9 +19,14 @@ const Perfil = () => {
     (state: RootState) => state.restaurantState.modalIsVisible
   );
 
+  const cartIsVisible = useSelector(
+    (state: RootState) => state.restaurantState.cartIsVisible
+  );
+
   return (
     <>
       {modalIsVisible && <ProductModal />}
+      {cartIsVisible && <Cart />}
       <HeaderPefil />
       <HeroPerfil />
       <LayoutContainer>
