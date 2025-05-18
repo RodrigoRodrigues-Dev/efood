@@ -2,6 +2,8 @@ import { useDispatch } from 'react-redux';
 import { addRestaurant } from '../../store/reducers/restaurantReducer';
 import { Link } from 'react-router-dom';
 
+import { MenuItem } from '../../services/api';
+
 import {
   CardRestaurantStyled,
   CardBtn,
@@ -18,10 +20,11 @@ import {
 
 type Props = {
   $name: string;
-  $rating: string;
+  $rating: number;
   $img: string;
   $description: string;
-  $tags: string[];
+  $tags: string;
+  $cardapio: MenuItem[];
 };
 
 const CardRestaurant = ({
@@ -29,14 +32,16 @@ const CardRestaurant = ({
   $rating,
   $description,
   $tags,
-  $img
+  $img,
+  $cardapio
 }: Props) => {
   const restaurant = {
     name: $name,
     rating: $rating,
     description: $description,
     tags: $tags,
-    img: $img
+    img: $img,
+    cardapio: $cardapio
   };
 
   const dispatch = useDispatch();
@@ -48,9 +53,7 @@ const CardRestaurant = ({
   return (
     <CardRestaurantStyled>
       <Tags>
-        {$tags.map((item, key) => (
-          <Tag key={key}>{item}</Tag>
-        ))}
+        <Tag>{$tags}</Tag>
       </Tags>
       <ImgFood src={$img} />
       <CardInfo>

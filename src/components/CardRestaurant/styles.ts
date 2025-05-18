@@ -35,6 +35,7 @@ export const CardInfo = styled.div`
 
 export const ImgFood = styled.img`
   height: 217px;
+  width: 100%;
 `;
 
 export const Paragraph = styled.p`
