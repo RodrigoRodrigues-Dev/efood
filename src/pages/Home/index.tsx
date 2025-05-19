@@ -8,8 +8,6 @@ import LayoutContainer from '../../components/LayoutContainer';
 const Home = () => {
   const { data: restaurants } = useGetRestaurantsQuery();
 
-  console.log(restaurants);
-
   return (
     <>
       <HeroHome />

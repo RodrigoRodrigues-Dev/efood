@@ -17,6 +17,7 @@ interface RestaurantState {
   modalIsVisible: boolean;
   cartIsVisible: boolean;
   cart: MenuItem[];
+  idPedido: number | null;
 }
 
 const initialState: RestaurantState = {
@@ -24,7 +25,8 @@ const initialState: RestaurantState = {
   modal: undefined,
   modalIsVisible: false,
   cartIsVisible: false,
-  cart: []
+  cart: [],
+  idPedido: null
 };
 
 const restaurantSlice = createSlice({
@@ -77,6 +79,12 @@ const restaurantSlice = createSlice({
       if (typeof action.payload === 'number') {
         state.cart = state.cart.filter(c => c.id !== action.payload);
       }
+    },
+    resetCart(state) {
+      state.cart = [];
+    },
+    setPedidoID(state, action: PayloadAction<number | null>) {
+      state.idPedido = action.payload;
     }
   }
 });
@@ -89,6 +97,8 @@ export const {
   addCart,
   cartClose,
   cartOpen,
-  deleteItemCart
+  deleteItemCart,
+  resetCart,
+  setPedidoID
 } = restaurantSlice.actions;
 export const restaurantReducer = restaurantSlice.reducer;
